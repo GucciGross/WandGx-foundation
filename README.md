@@ -2,7 +2,7 @@
 
 **WandGx Foundation** is the clone-and-build base for agent-first SaaS apps.
 
-It ships with a Hermes control-plane agent template, CrewAI runtime crews, AG-UI-style streaming, CopilotKit-ready UI surfaces, A2A-style agent discovery, Postgres, Redis, local SearXNG search, and Firecrawl integration hooks.
+It ships with a Hermes control-plane agent template, CrewAI runtime crews, AG-UI-style streaming, CopilotKit-ready UI surfaces, A2A-style agent discovery, Postgres, Redis, repo-local agent rules/skills, SearXNG configuration, and Firecrawl guidance.
 
 The intent is simple:
 
@@ -20,7 +20,6 @@ Then open:
 - Product copilot: <http://localhost:3000/app/support>
 - API docs: <http://localhost:8000/docs>
 - A2A card: <http://localhost:8000/.well-known/agent-card.json>
-- Local SearXNG: <http://localhost:8888>
 
 ## What this repo is
 
@@ -40,14 +39,13 @@ Hermes Control Plane
   ↓
 CrewAI Runtime Plane
   - support crew template
-  - research crew template
   - generated crew registry
   - worker process
   ↓
 Research Plane
-  - local SearXNG metasearch
-  - Firecrawl search/scrape hooks
-  - CrewAI web-search tools
+  - SearXNG local search config
+  - Firecrawl search/scrape guidance
+  - source-aware research rules
   ↓
 AG-UI / CopilotKit-ready Frontend
   - user-facing product copilot
@@ -79,20 +77,18 @@ apps/
   worker/                 CrewAI/background worker skeleton
 packages/
   hermes_agent/           Hermes control plane, crew factory, safe generation helpers
-  web_research/           SearXNG + Firecrawl research clients and CrewAI tools
   agui_runtime/           Minimal AG-UI event helpers and SSE encoder
   a2a_adapter/            A2A-style agent-card helpers
   contracts/              JSON schemas for app, crew, tool, feedback, and approval manifests
 crews/
   templates/support_crew/ Example user-facing CrewAI-ready support crew
-  templates/research_crew/ Example web-search/research crew
   generated/              Versioned generated crews live here
 .hermes/
   rules.md                Local Hermes/Codex operating rules
   skills/                 Repo-local coding skills for agents
 infra/
   postgres/init.sql       Local database bootstrap
-  searxng/settings.yml    Local SearXNG configuration with JSON enabled
+  searxng/                Local SearXNG settings and compose example
 examples/
   painterquote-pro/       Example app manifest
 ```
@@ -122,6 +118,17 @@ pnpm install
 pnpm dev
 ```
 
+## Local search
+
+SearXNG config lives in `infra/searxng/`.
+
+```bash
+cd infra/searxng
+docker compose -f compose.example.yml up
+```
+
+Then open `http://localhost:8888`.
+
 ## CLI
 
 After `pip install -e .`, use:
@@ -132,20 +139,6 @@ hermes plan "A quote app for painting contractors"
 hermes crew create "Lead intake crew for painting quotes" --write
 hermes observe
 ```
-
-## Web research stack
-
-SearXNG runs locally in Docker and is the default no-key web search provider.
-
-Firecrawl is wired as an optional richer scrape/search provider. Set these when you want Firecrawl cloud or a self-hosted Firecrawl endpoint:
-
-```env
-FIRECRAWL_ENABLED=true
-FIRECRAWL_API_KEY=
-FIRECRAWL_API_URL=https://api.firecrawl.dev
-```
-
-For self-hosted Firecrawl, set `FIRECRAWL_API_URL=http://localhost:3002` on the host or `http://firecrawl:3002` from inside Docker.
 
 ## Hermes modes
 
