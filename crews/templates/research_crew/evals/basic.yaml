@@ -1,0 +1,9 @@
+name: research_crew_basic
+input:
+  query: "CrewAI custom tools"
+  limit: 3
+expected:
+  must_include:
+    - "summary"
+    - "sources"
+  needs_human: false
