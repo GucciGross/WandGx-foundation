@@ -1,0 +1,4 @@
+research_task:
+  description: "Return a source-aware summary for the provided query."
+  expected_output: "JSON summary."
+  agent: researcher
