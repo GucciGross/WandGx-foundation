@@ -1,0 +1,4 @@
+answer_support_question:
+  description: "Answer the user's support question using product context and approved tools."
+  expected_output: "Helpful answer with confidence and human-escalation decision."
+  agent: support_agent

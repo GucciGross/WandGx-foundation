@@ -1,0 +1,18 @@
+{
+  "id": "support_crew",
+  "name": "Support Crew",
+  "runtime": "crewai",
+  "purpose": "Answer product questions, escalate when confidence is low, and capture feedback.",
+  "inputs_schema": "crews/templates/support_crew/schemas/input.schema.json",
+  "outputs_schema": "crews/templates/support_crew/schemas/output.schema.json",
+  "tools": ["knowledge.search", "feedback.create", "human.escalate"],
+  "permissions": {
+    "read_db": true,
+    "write_db": true,
+    "send_email": "approval_required",
+    "charge_customer": false
+  },
+  "requires_human_approval": true,
+  "entrypoint": "crews/templates/support_crew/crew.py",
+  "evals": ["crews/templates/support_crew/evals/basic.yaml"]
+}

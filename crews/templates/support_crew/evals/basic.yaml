@@ -1,0 +1,8 @@
+name: support_crew_basic
+input:
+  message: "How do I upload photos?"
+expected:
+  must_include:
+    - "answer"
+    - "confidence"
+  needs_human: false

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Support Crew Input",
+  "type": "object",
+  "properties": {
+    "message": {"type": "string"},
+    "context": {"type": "object"},
+    "run_id": {"type": "string"}
+  },
+  "required": ["message"],
+  "additionalProperties": true
+}
