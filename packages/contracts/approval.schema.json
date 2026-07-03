@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Human Approval Request",
+  "type": "object",
+  "required": [
+    "action",
+    "status"
+  ],
+  "properties": {
+    "action": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ]
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hermes Tool Manifest",
+  "type": "object",
+  "required": [
+    "id",
+    "description",
+    "risk"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "input_schema": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hermes App Manifest",
+  "type": "object",
+  "required": [
+    "app_name",
+    "slug",
+    "description",
+    "users",
+    "entities",
+    "crews"
+  ],
+  "properties": {
+    "app_name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "users": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "crews": {
+      "type": "array",
+      "items": {
+        "$ref": "crew.manifest.schema.json"
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hermes Crew Manifest",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "runtime",
+    "purpose",
+    "inputs_schema",
+    "outputs_schema",
+    "entrypoint"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "runtime": {
+      "const": "crewai"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "inputs_schema": {
+      "type": "string"
+    },
+    "outputs_schema": {
+      "type": "string"
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "permissions": {
+      "type": "object"
+    },
+    "requires_human_approval": {
+      "type": "boolean"
+    },
+    "entrypoint": {
+      "type": "string"
+    },
+    "evals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
