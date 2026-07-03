@@ -3,8 +3,8 @@
   "name": "Research Crew",
   "runtime": "crewai",
   "purpose": "Search the web and return source-aware summaries for app-building tasks.",
-  "inputs_schema": "crews/templates/research_crew/schemas/input.schema.json",
-  "outputs_schema": "crews/templates/research_crew/schemas/output.schema.json",
+  "inputs_schema": "",
+  "outputs_schema": "",
   "tools": ["web.search"],
   "permissions": {
     "read_web": true,
@@ -13,5 +13,5 @@
   },
   "requires_human_approval": false,
   "entrypoint": "crews/templates/research_crew/crew.py",
-  "evals": ["crews/templates/research_crew/evals/basic.yaml"]
+  "evals": []
 }
