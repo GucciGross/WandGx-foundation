@@ -1,0 +1,10 @@
+{
+  "title": "Research Crew Output",
+  "type": "object",
+  "properties": {
+    "crew_id": {"type": "string"},
+    "status": {"type": "string"},
+    "summary": {"type": "string"},
+    "needs_human": {"type": "boolean"}
+  }
+}
