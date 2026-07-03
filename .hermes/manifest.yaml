@@ -1,0 +1,40 @@
+name: WandGx Foundation
+version: 0.1.0
+purpose: Reusable foundation for agent-first SaaS applications.
+control_plane: Hermes
+runtime: CrewAI
+frontend:
+  - Next.js
+  - AG-UI-style events
+  - CopilotKit-ready surfaces
+research:
+  default_provider: searxng
+  optional_provider: firecrawl
+required_reading:
+  - AGENTS.md
+  - .hermes/rules.md
+  - .hermes/agent-template/system.md
+  - .hermes/skills/app-builder.md
+  - .hermes/skills/crewai.md
+  - .hermes/skills/research-tools.md
+  - .hermes/skills/security.md
+allowed_write_paths:
+  - apps
+  - packages
+  - crews/generated
+  - crews/templates
+  - docs
+  - examples
+  - infra
+  - tests
+  - .hermes
+approval_required_for:
+  - send_email
+  - send_sms
+  - charge_customer
+  - delete_data
+  - export_customer_data
+  - run_shell_command
+  - deploy_production
+  - modify_auth
+  - modify_billing
