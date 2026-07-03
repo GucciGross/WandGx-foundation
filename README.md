@@ -1,12 +1,14 @@
-# Hermes Agent Starter
+# WandGx Foundation
 
-A batteries-included starter for building agent-first SaaS apps with a **Hermes control plane**, **CrewAI runtime crews**, **AG-UI streams**, **A2UI-style generative UI contracts**, **A2A agent cards**, Postgres, Redis, and Docker Compose.
+**WandGx Foundation** is the clone-and-build base for agent-first SaaS apps.
 
-This repo is designed to be cloned as the foundation for every new agent-powered app:
+It ships with a Hermes control-plane agent template, CrewAI runtime crews, AG-UI-style streaming, CopilotKit-ready UI surfaces, A2A-style agent discovery, Postgres, Redis, local SearXNG search, and Firecrawl integration hooks.
+
+The intent is simple:
 
 ```txt
-git clone <your-repo-url>
-cd hermes-agent-starter
+git clone https://github.com/GucciGross/WandGx-foundation.git
+cd WandGx-foundation
 cp .env.example .env
 docker compose up --build
 ```
@@ -14,53 +16,83 @@ docker compose up --build
 Then open:
 
 - Web app: <http://localhost:3000>
-- API health: <http://localhost:8000/health>
-- Hermes admin API: <http://localhost:8000/admin/hermes/chat>
+- Hermes admin: <http://localhost:3000/admin/hermes>
+- Product copilot: <http://localhost:3000/app/support>
+- API docs: <http://localhost:8000/docs>
 - A2A card: <http://localhost:8000/.well-known/agent-card.json>
+- Local SearXNG: <http://localhost:8888>
 
-## What this gives you
+## What this repo is
+
+WandGx Foundation is not a one-off demo. It is the foundation repo we can constantly clone when starting new products.
 
 ```txt
-Developer/Admin
+Developer / Admin
   ↓
 Hermes Control Plane
   - app interview
-  - app manifest generation
-  - DB/UI/API scaffolding plan
+  - product spec generation
+  - DB/API/UI scaffold planning
   - CrewAI crew factory
+  - code-generation guardrails
   - feedback triage
-  - self-healing proposal loop
+  - safe self-healing proposals
   ↓
 CrewAI Runtime Plane
   - support crew template
+  - research crew template
   - generated crew registry
   - worker process
   ↓
+Research Plane
+  - local SearXNG metasearch
+  - Firecrawl search/scrape hooks
+  - CrewAI web-search tools
+  ↓
 AG-UI / CopilotKit-ready Frontend
-  - streaming product copilot
+  - user-facing product copilot
   - admin Hermes console
-  - approval/feedack surfaces
+  - approval and feedback surfaces
   ↓
 Postgres / Redis / Logs / Feedback
 ```
+
+## Agent instructions are built in
+
+When Codex, a local Hermes agent, or any coding agent opens this repo, it should read:
+
+```txt
+AGENTS.md
+.hermes/rules.md
+.hermes/skills/*.md
+.hermes/agent-template/system.md
+```
+
+Those files explain what WandGx Foundation is, how generated code should be structured, how CrewAI crews should be written, and which actions require approval.
 
 ## Repo layout
 
 ```txt
 apps/
   api/                    FastAPI backend, AG-UI stream endpoint, A2A card, feedback API
-  web/                    Next.js UI with Hermes admin console and product copilot
+  web/                    Next.js UI with Hermes Admin and Product Copilot
   worker/                 CrewAI/background worker skeleton
 packages/
-  hermes_agent/           Hermes control plane, crew factory, safe code generation helpers
+  hermes_agent/           Hermes control plane, crew factory, safe generation helpers
+  web_research/           SearXNG + Firecrawl research clients and CrewAI tools
   agui_runtime/           Minimal AG-UI event helpers and SSE encoder
-  a2a_adapter/            A2A agent-card helpers
+  a2a_adapter/            A2A-style agent-card helpers
   contracts/              JSON schemas for app, crew, tool, feedback, and approval manifests
 crews/
-  templates/support_crew/ Example CrewAI-ready crew with deterministic fallback
+  templates/support_crew/ Example user-facing CrewAI-ready support crew
+  templates/research_crew/ Example web-search/research crew
   generated/              Versioned generated crews live here
+.hermes/
+  rules.md                Local Hermes/Codex operating rules
+  skills/                 Repo-local coding skills for agents
 infra/
   postgres/init.sql       Local database bootstrap
+  searxng/settings.yml    Local SearXNG configuration with JSON enabled
 examples/
   painterquote-pro/       Example app manifest
 ```
@@ -78,7 +110,7 @@ Local development without Docker:
 python -m venv .venv
 source .venv/bin/activate
 pip install -e '.[dev]'
-python -m apps.api.main
+PYTHONPATH=packages:. uvicorn apps.api.main:app --reload
 ```
 
 In another terminal:
@@ -97,9 +129,23 @@ After `pip install -e .`, use:
 ```bash
 hermes doctor
 hermes plan "A quote app for painting contractors"
-hermes crew create "Lead intake crew for painting quotes"
+hermes crew create "Lead intake crew for painting quotes" --write
 hermes observe
 ```
+
+## Web research stack
+
+SearXNG runs locally in Docker and is the default no-key web search provider.
+
+Firecrawl is wired as an optional richer scrape/search provider. Set these when you want Firecrawl cloud or a self-hosted Firecrawl endpoint:
+
+```env
+FIRECRAWL_ENABLED=true
+FIRECRAWL_API_KEY=
+FIRECRAWL_API_URL=https://api.firecrawl.dev
+```
+
+For self-hosted Firecrawl, set `FIRECRAWL_API_URL=http://localhost:3002` on the host or `http://firecrawl:3002` from inside Docker.
 
 ## Hermes modes
 
@@ -122,7 +168,7 @@ Hermes generates manifests before code. Generated crews should always have:
 - tests/evals
 - human-approval settings
 
-That is how this starter allows agents to create more agents without turning into chaos.
+That is how WandGx Foundation allows agents to create more agents without turning into chaos.
 
 ## Safety defaults
 
@@ -131,16 +177,3 @@ That is how this starter allows agents to create more agents without turning int
 - Secrets stay in `.env` and are never written into generated code.
 - Feedback becomes evals before prompt or code changes are promoted.
 - Self-healing produces proposals by default, not direct production edits.
-
-## GitHub publish
-
-Do **not** paste long-lived PATs into chat or commits. The safest flow is:
-
-```bash
-git init
-git add -A
-git commit -m "Initial Hermes agent starter"
-gh repo create hermes-agent-starter --public --source=. --remote=origin --push
-```
-
-If you use a token, make it short-lived and fine-grained with only the repository permissions you need.
