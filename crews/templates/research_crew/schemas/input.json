@@ -1,0 +1,9 @@
+{
+  "title": "Research Crew Input",
+  "type": "object",
+  "properties": {
+    "query": {"type": "string"},
+    "message": {"type": "string"},
+    "limit": {"type": "integer"}
+  }
+}
