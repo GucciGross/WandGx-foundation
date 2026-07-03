@@ -1,0 +1,11 @@
+{
+  "name": "hermes-agent-starter-root",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "pnpm --filter @hermes/web dev",
+    "build": "pnpm --filter @hermes/web build",
+    "lint": "pnpm --filter @hermes/web lint"
+  },
+  "packageManager": "pnpm@9.12.3"
+}

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+pnpm-lock.yaml
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Generated local artifacts
+.local/
+logs/
+storage/
+coverage/
