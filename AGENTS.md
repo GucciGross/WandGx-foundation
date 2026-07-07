@@ -61,3 +61,13 @@ cd apps/web && pnpm lint
 ```
 
 If a check cannot run because dependencies or services are missing, document the blocker clearly.
+
+## WandGx ecosystem context
+
+This repo was previously missing from the 138 WandGx repo handoff set. Before ecosystem-facing work, also read:
+
+```txt
+.agents/skills/wandgx-ecosystem/SKILL.md
+```
+
+That skill carries the current WandGx/SET/Oracle topology, VM routing, production URLs, source/deploy boundaries, central identity rules, and proof gates. Keep this repo as foundation/source infrastructure; dev-box success is not production success unless the relevant production runtime is rebuilt/restarted and live-verified.
