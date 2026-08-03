@@ -1,0 +1,27 @@
+name: Dex Bootstrap
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Validate public Dex bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          sh -n install/dex.sh
+          grep -q 'GucciGross/DexCLI' install/dex.sh
+          grep -q 'application/vnd.github.raw+json' install/dex.sh
+          grep -q 'exec sh "$INSTALLER" "$@"' install/dex.sh
+          git diff --check
