@@ -3,7 +3,23 @@ name: CI
 on:
   push:
     branches: [main]
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "crews/**"
+      - "scripts/**"
+      - "pyproject.toml"
+      - "package.json"
+      - "pnpm-lock.yaml"
   pull_request:
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "crews/**"
+      - "scripts/**"
+      - "pyproject.toml"
+      - "package.json"
+      - "pnpm-lock.yaml"
 
 permissions:
   contents: read
