@@ -29,7 +29,7 @@ class SearxngSearchClient:
             f"{self.base_url}/search?{params}",
             headers={"User-Agent": "WandGxFoundation/0.1"},
         )
-        with urllib.request.urlopen(request, timeout=20) as response:  # noqa: S310
+        with urllib.request.urlopen(request, timeout=20) as response:
             data = json.loads(response.read().decode("utf-8"))
         results: list[SearchResult] = []
         for item in data.get("results", [])[:limit]:

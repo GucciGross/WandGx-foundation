@@ -28,7 +28,7 @@ def kickoff(payload: dict[str, Any]) -> dict[str, Any]:
 
     try:
         from crewai import Agent, Crew, Process, Task
-    except Exception:
+    except ImportError:
         return deterministic_support(payload)
 
     support_agent = Agent(

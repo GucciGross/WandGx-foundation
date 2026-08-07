@@ -3,4 +3,4 @@
 from .orchestrator import HermesControlPlane
 from .schemas import AppManifest, CrewManifest, HermesResponse
 
-__all__ = ["HermesControlPlane", "AppManifest", "CrewManifest", "HermesResponse"]
+__all__ = ["AppManifest", "CrewManifest", "HermesControlPlane", "HermesResponse"]
