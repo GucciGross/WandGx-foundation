@@ -4,10 +4,9 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-
 from hermes_agent import HermesControlPlane
 from hermes_agent.schemas import CrewManifest, HermesMode
+from pydantic import BaseModel
 
 from apps.api.settings import settings
 
@@ -33,7 +32,7 @@ def scaffold_crew(manifest: CrewManifest) -> dict[str, Any]:
         pass
     try:
         paths = HermesControlPlane(repo_root=Path.cwd(), mode=settings.hermes_mode).scaffold_crew(manifest)
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"status": "written", "paths": paths}
 

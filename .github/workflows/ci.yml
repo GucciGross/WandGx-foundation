@@ -31,8 +31,8 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
-          cache-dependency-path: apps/web/package.json
+          cache-dependency-path: pnpm-lock.yaml
       - name: Install web deps
-        run: cd apps/web && pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Lint web
         run: cd apps/web && pnpm lint

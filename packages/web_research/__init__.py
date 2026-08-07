@@ -1,4 +1,4 @@
 from .firecrawl_local import FirecrawlLocalClient
-from .searxng import SearxngSearchClient, SearchResult
+from .searxng import SearchResult, SearxngSearchClient
 
-__all__ = ["FirecrawlLocalClient", "SearxngSearchClient", "SearchResult"]
+__all__ = ["FirecrawlLocalClient", "SearchResult", "SearxngSearchClient"]

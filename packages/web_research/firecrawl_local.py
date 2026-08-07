@@ -33,5 +33,5 @@ class FirecrawlLocalClient:
             headers={"Content-Type": "application/json", "User-Agent": "WandGxFoundation/0.1"},
             method="POST",
         )
-        with urllib.request.urlopen(request, timeout=60) as response:  # noqa: S310
+        with urllib.request.urlopen(request, timeout=60) as response:
             return json.loads(response.read().decode("utf-8"))

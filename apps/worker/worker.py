@@ -14,7 +14,7 @@ def main() -> None:
     print("Hermes worker started. Waiting for jobs on", QUEUE, flush=True)
     try:
         import redis
-    except Exception:
+    except ImportError:
         print("redis package unavailable; worker entering heartbeat-only mode.", flush=True)
         while True:
             time.sleep(30)

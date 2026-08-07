@@ -4,6 +4,19 @@ import { useState } from "react";
 import { postJson } from "@/lib/api";
 
 type ChatMessage = { role: "user" | "assistant"; content: string; artifact?: unknown };
+type HermesAction = {
+  type: string;
+  title: string;
+  description: string;
+  payload: Record<string, unknown>;
+  requires_approval: boolean;
+};
+type HermesChatResponse = {
+  message: string;
+  mode: "dormant" | "observe" | "guardian";
+  actions: HermesAction[];
+  artifacts: Record<string, unknown>;
+};
 
 export function HermesConsole() {
   const [input, setInput] = useState("Build a quote app for painting contractors");
@@ -23,7 +36,10 @@ export function HermesConsole() {
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: message }]);
     try {
-      const response = await postJson<any>("/admin/hermes/chat", { message, context: {} });
+      const response = await postJson<HermesChatResponse>("/admin/hermes/chat", {
+        message,
+        context: {},
+      });
       setMessages((prev) => [
         ...prev,
         {

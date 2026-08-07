@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Request
-
 from a2a_adapter import build_agent_card
+from fastapi import APIRouter, Request
 
 router = APIRouter(tags=["a2a"])
 

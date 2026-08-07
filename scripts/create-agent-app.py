@@ -9,7 +9,6 @@ WandGx/Oracle defaults needed for an agent-native app.
 from __future__ import annotations
 
 import argparse
-import os
 import re
 import shutil
 from pathlib import Path
@@ -51,9 +50,9 @@ def write_app_overrides(dst: Path, app_name: str, package_name: str, oracle_base
     env = dst / ".env"
     if env_example.exists() and not env.exists():
         text = env_example.read_text()
-        text = re.sub(r"^APP_NAME=.*$", f"APP_NAME={app_name}", text, flags=re.M)
-        text = re.sub(r"^MODEL_PROVIDER=.*$", "MODEL_PROVIDER=wandgx", text, flags=re.M)
-        text = re.sub(r"^MODEL_NAME=.*$", "MODEL_NAME=oracle-1", text, flags=re.M)
+        text = re.sub(r"^APP_NAME=.*$", f"APP_NAME={app_name}", text, flags=re.MULTILINE)
+        text = re.sub(r"^MODEL_PROVIDER=.*$", "MODEL_PROVIDER=wandgx", text, flags=re.MULTILINE)
+        text = re.sub(r"^MODEL_NAME=.*$", "MODEL_NAME=oracle-1", text, flags=re.MULTILINE)
         text += f"\n# WandGx Oracle-1\nWANDGX_LLM_BASE_URL={oracle_base_url.rstrip('/')}/v1\nWANDGX_MODEL=oracle-1\n"
         env.write_text(text)
     marker = dst / "FOUNDATION.md"
@@ -84,8 +83,8 @@ Then start Docker Compose or the API/web dev servers from the README.
     pyproject = dst / "pyproject.toml"
     if pyproject.exists():
         text = pyproject.read_text()
-        text = re.sub(r'^name = "[^"]+"', f'name = "{package_name}"', text, count=1, flags=re.M)
-        text = re.sub(r'^description = "[^"]+"', f'description = "{app_name} built on WandGx Foundation."', text, count=1, flags=re.M)
+        text = re.sub(r'^name = "[^"]+"', f'name = "{package_name}"', text, count=1, flags=re.MULTILINE)
+        text = re.sub(r'^description = "[^"]+"', f'description = "{app_name} built on WandGx Foundation."', text, count=1, flags=re.MULTILINE)
         pyproject.write_text(text)
 
 
@@ -106,7 +105,7 @@ def main() -> None:
     write_app_overrides(target, args.name, package_name, args.oracle_base_url)
     print(f"created={target}")
     print(f"app_name={args.name}")
-    print(f"model=oracle-1")
+    print("model=oracle-1")
     print(f"next=cd {target} && PYTHONPATH=packages:. pytest -q")
 
 

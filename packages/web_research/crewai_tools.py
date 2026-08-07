@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from typing import Type
 
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
@@ -17,7 +16,7 @@ class WebSearchInput(BaseModel):
 class LocalWebSearchTool(BaseTool):
     name: str = "local_web_search"
     description: str = "Search the web through the local SearXNG service configured for WandGx Foundation."
-    args_schema: Type[BaseModel] = WebSearchInput
+    args_schema: type[BaseModel] = WebSearchInput
 
     def _run(self, query: str, limit: int = 5) -> str:
         results = SearxngSearchClient().search(query=query, limit=limit)

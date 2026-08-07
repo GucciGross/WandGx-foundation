@@ -5,7 +5,14 @@ from typing import Any
 
 from .crew_factory import CrewFactory, slugify
 from .registry import JsonRegistry
-from .schemas import AppManifest, CrewManifest, EntityManifest, HermesAction, HermesMode, HermesResponse
+from .schemas import (
+    AppManifest,
+    CrewManifest,
+    EntityManifest,
+    HermesAction,
+    HermesMode,
+    HermesResponse,
+)
 from .self_healing import FeedbackTriage
 
 
